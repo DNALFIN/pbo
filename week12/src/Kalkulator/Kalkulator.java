@@ -36,6 +36,7 @@ public class Kalkulator extends javax.swing.JFrame {
         tombolBagi = new javax.swing.JButton();
         tombolKali = new javax.swing.JButton();
         tombolMod = new javax.swing.JButton();
+        kolomNotif = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +91,9 @@ public class Kalkulator extends javax.swing.JFrame {
             }
         });
 
+        kolomNotif.setText("    ");
+        kolomNotif.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,23 +101,26 @@ public class Kalkulator extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bil1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(aksi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bil2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kolomHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(tombolTambah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tombolKurang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tombolKali, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tombolBagi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tombolMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(tombolMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bil1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aksi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kolomNotif, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bil2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(kolomHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +132,9 @@ public class Kalkulator extends javax.swing.JFrame {
                     .addComponent(aksi)
                     .addComponent(kolomHasil)
                     .addComponent(jLabel3))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(kolomNotif)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tombolTambah)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tombolKurang)
@@ -147,8 +156,17 @@ public class Kalkulator extends javax.swing.JFrame {
 
     private void tombolTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahActionPerformed
         // TODO add your handling code here:
+        kolomNotif.setText("");
+        try {
         double hasil1 = Double.parseDouble(bil1.getText()) + Double.parseDouble(bil2.getText()) ;
         kolomHasil.setText(Double.toString(hasil1));
+        } 
+        catch (NumberFormatException e) {
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Masukan bilangan");
+        } catch (Exception e) {
+            kolomHasil.setText("Error " + e.getMessage());
+        }
         aksi.setText(" + ");
     }//GEN-LAST:event_tombolTambahActionPerformed
 
@@ -158,42 +176,72 @@ public class Kalkulator extends javax.swing.JFrame {
 
     private void tombolKurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolKurangActionPerformed
         // TODO add your handling code here:
+        kolomNotif.setText("");
+        try {
         double hasil2 = Double.parseDouble(bil1.getText()) - Double.parseDouble(bil2.getText()) ;
         kolomHasil.setText(Double.toString(hasil2));
+        } 
+        catch (NumberFormatException e) {
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Masukan bilangan");
+        } catch (Exception e) {
+            kolomHasil.setText("Error " + e.getMessage());
+        }
         aksi.setText(" - ");
     }//GEN-LAST:event_tombolKurangActionPerformed
 
     private void tombolBagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolBagiActionPerformed
         // TODO add your handling code here:
+        kolomNotif.setText("");
         try {
         double num1 = Double.parseDouble(bil1.getText());
         double num2 = Double.parseDouble(bil2.getText());
         if (num2 == 0) {
-            kolomHasil.setText("Error: Bilangan tidak bisa dibagi 0");
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Bilangan tidak bisa dibagi 0");
         } else {
             double hasil = num1 / num2;
             kolomHasil.setText(Double.toString(hasil));
         }
         } 
         catch (NumberFormatException e) {
-            kolomHasil.setText("Error: Invalid input");
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Masukan bilangan");
         } catch (Exception e) {
-            kolomHasil.setText("Error: " + e.getMessage());
+            kolomHasil.setText("Error " + e.getMessage());
         } 
         aksi.setText(" / ");
     }//GEN-LAST:event_tombolBagiActionPerformed
 
     private void tombolKaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolKaliActionPerformed
         // TODO add your handling code here:
+        kolomNotif.setText("");
+        try {
         double hasil4 = Double.parseDouble(bil1.getText()) * Double.parseDouble(bil2.getText()) ;
         kolomHasil.setText(Double.toString(hasil4));
+        } 
+        catch (NumberFormatException e) {
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Masukan bilangan");
+        } catch (Exception e) {
+            kolomHasil.setText("Error " + e.getMessage());
+        }
         aksi.setText(" x ");
     }//GEN-LAST:event_tombolKaliActionPerformed
 
     private void tombolModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolModActionPerformed
         // TODO add your handling code here:
+        kolomNotif.setText("");
+        try {
         double hasil5 = Double.parseDouble(bil1.getText()) % Double.parseDouble(bil2.getText()) ;
         kolomHasil.setText(Double.toString(hasil5));
+        } 
+        catch (NumberFormatException e) {
+            kolomHasil.setText("Error");
+            kolomNotif.setText("Masukan bilangan");
+        } catch (Exception e) {
+            kolomHasil.setText("Error " + e.getMessage());
+        }
         aksi.setText(" % ");
     }//GEN-LAST:event_tombolModActionPerformed
 
@@ -238,6 +286,7 @@ public class Kalkulator extends javax.swing.JFrame {
     private javax.swing.JTextField bil2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel kolomHasil;
+    private javax.swing.JLabel kolomNotif;
     private javax.swing.JButton tombolBagi;
     private javax.swing.JButton tombolKali;
     private javax.swing.JButton tombolKurang;
